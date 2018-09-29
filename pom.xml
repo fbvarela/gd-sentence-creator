@@ -35,7 +35,16 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.7.4</version>
+        </dependency>
+
     </dependencies>
+
+
 
     <build>
         <plugins>
