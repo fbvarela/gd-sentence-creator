@@ -6,4 +6,10 @@ create table WORDS
    primary key(id)
 );
 
+create table SENTENCES
+(
+   id integer not null,
+   sentence varchar(255) not null,
+   primary key(id)
+);
 
