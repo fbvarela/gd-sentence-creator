@@ -1,2 +1,9 @@
-insert into WORDS (id, word, type) values(1, 'Yo', 'soy', 'malo');
-insert into WORDS (id, word, type) values(1, 'Tú', 'eres', 'buena');
+create table WORDS
+(
+   id integer not null,
+   word varchar(255) not null,
+   category varchar(255) not null,
+   primary key(id)
+);
+
+

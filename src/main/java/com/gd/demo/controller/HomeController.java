@@ -1,15 +1,15 @@
 package com.gd.demo.controller;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
-    @Controller
-    public class HomeController {
 
-        @RequestMapping("/home")
-        public String home() {
 
-            return "index";
-        }
+@Controller
+public class HomeController {
+    @RequestMapping("/home")
+    public String home() {
+        return "index.html";
     }
-
+}

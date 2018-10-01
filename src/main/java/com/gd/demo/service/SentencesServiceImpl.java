@@ -1,5 +1,6 @@
 package com.gd.demo.service;
 
+import com.gd.demo.domain.Word;
 import com.gd.demo.dto.WordDto;
 import com.gd.demo.repository.SentencesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class SentencesServiceImpl implements SentencesService {
     SentencesRepository userRepository;
 
     @Override
-    public List<WordDto> getAllWords() {
-        return null;
+    public List<Word> getAllWords() {
+        return userRepository.findAll();
     }
 }

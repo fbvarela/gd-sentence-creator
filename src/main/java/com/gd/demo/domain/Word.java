@@ -1,8 +1,5 @@
 package com.gd.demo.domain;
 
-
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -19,7 +16,8 @@ public class Word implements Serializable {
     private String word;
 
     @NotEmpty
-    private String type;
+    @Column(name = "category", unique = true)
+    private String category;
 
     public Long getId() {
         return id;
@@ -38,10 +36,17 @@ public class Word implements Serializable {
     }
 
     public String getType() {
-        return type;
+        return category;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.category = type;
     }
+
+    public Word(@NotEmpty String word, @NotEmpty String type) {
+        this.word = word;
+        this.category = type;
+    }
+
+    public Word() { }
 }

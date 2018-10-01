@@ -2,7 +2,7 @@ package com.gd.demo.dto;
 
 public class WordDto {
 
-    private Long wordId;
+    private Long id;
 
     private String word;
 
@@ -11,7 +11,7 @@ public class WordDto {
 
 
     public WordDto(Long wordId, String word) {
-        this.wordId = wordId;
+        this.id = wordId;
         this.word = word;
         this.category = category;
     }
@@ -19,11 +19,11 @@ public class WordDto {
     public WordDto() {}
 
     public Long getWordId() {
-        return wordId;
+        return id;
     }
 
     public void setWordId(Long wordId) {
-        this.wordId = wordId;
+        this.id = wordId;
     }
 
     public String getWord() {
