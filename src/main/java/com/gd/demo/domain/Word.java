@@ -2,6 +2,7 @@
 package com.gd.demo.domain;
 
 
+import com.gd.demo.enums.WordCategory;
 import lombok.*;
 
 
@@ -27,11 +28,10 @@ public class Word implements Serializable {
     private String word;
 
     @NotEmpty
-    //@Enumerated(EnumType.ORDINAL)
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private WordCategory category;
 
-    //@Column(name = "weight")
-    //private double weight = 1;
+
 
 
 }

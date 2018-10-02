@@ -43,6 +43,7 @@ public class SentencesController {
     @GetMapping(value = "/sentences/generate")
     public String generateSentence() {
         String result = sentencesServiceImpl.generateSentence();
+
         return result;
     }
 }

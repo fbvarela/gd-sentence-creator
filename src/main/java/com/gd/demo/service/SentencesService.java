@@ -1,7 +1,5 @@
 package com.gd.demo.service;
 
-
-import com.gd.demo.domain.Sentence;
 import com.gd.demo.domain.Word;
 
 import java.util.List;
