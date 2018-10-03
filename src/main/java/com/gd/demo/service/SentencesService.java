@@ -1,5 +1,6 @@
 package com.gd.demo.service;
 
+import com.gd.demo.domain.Sentence;
 import com.gd.demo.domain.Word;
 
 import java.util.List;
@@ -7,5 +8,5 @@ import java.util.List;
 public interface SentencesService {
     public List<Word> getAllWords();
 
-    public String generateSentence();
+    public List<Sentence> generateSentence();
 }

@@ -1,6 +1,7 @@
 package com.gd.demo.service;
 
 
+import com.gd.demo.converter.EntityConverter;
 import com.gd.demo.domain.Sentence;
 import com.gd.demo.domain.Word;
 import com.gd.demo.dto.SentenceDto;
@@ -19,7 +20,9 @@ public class SentencesServiceImpl implements SentencesService {
     SentencesRepository userRepository;
 
     @Autowired
-    SentenceDto sentences;
+    Sentence sentences;
+
+
 
     private List<Word> noums;
     private List<Word> verbs;
@@ -32,25 +35,29 @@ public class SentencesServiceImpl implements SentencesService {
         return userRepository.findAll();
     }
 
-    public String generateSentence() {
+    public List<Sentence> generateSentence() {
         List<Word> words = getAllWords();
 
         List<Word> noums = ExtractWordsByCategory(words, WordCategory.NOUN);
         List<Word> verbs = ExtractWordsByCategory(words,WordCategory.VERB);
         List<Word> adjectives = ExtractWordsByCategory(words, WordCategory.ADJECTIVE);
 
+        List<Sentence> sent = new ArrayList<>();
+
+
         Random random = new Random();
-        int randomNumberBetwwenWordListIndex;
 
         for(int i=0;i<3;i++) {
+            sentences.setSentence(
+                    noums.get(getRandomNumberBetwwenWordListIndex(noums, random)).getWord() + " " +
+                    verbs.get(getRandomNumberBetwwenWordListIndex(verbs, random)).getWord() + " " +
+                    adjectives.get(getRandomNumberBetwwenWordListIndex(adjectives, random)).getWord()
+            );
+            sent.add(sentences);
 
-            sentencesShow.add(noums.get(getRandomNumberBetwwenWordListIndex(noums, random)).getWord() + " "
-
-            + verbs.get(getRandomNumberBetwwenWordListIndex(noums, random)).getWord() + " "
-            + adjectives.get(getRandomNumberBetwwenWordListIndex(noums, random)).getWord());
         }
 
-        return sentencesShow.toString();
+        return sent;
     }
 
     private int getRandomNumberBetwwenWordListIndex(List<Word> noums, Random random) {
