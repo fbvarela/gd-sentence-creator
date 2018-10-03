@@ -2,19 +2,18 @@ package com.gd.demo.converter;
 
 import com.gd.demo.domain.Sentence;
 import com.gd.demo.dto.SentenceDto;
+import lombok.Getter;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
+@Getter
 @Component
 @Mapper(componentModel = "spring")
-public interface EntityConverter {
+public abstract class SentenceConverter {
 
+    public abstract Sentence toEntity(SentenceDto dtoList);
 
-    public List<Sentence> toEntity(List<SentenceDto> dtoList);
-
-    public List <SentenceDto> toDto(List<Sentence> entityList);
-
+    public abstract SentenceDto toDto(Sentence entityList);
 
 }
+

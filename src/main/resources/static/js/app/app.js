@@ -1,4 +1,3 @@
-app.js
 $(document).ready(function() {
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
@@ -17,3 +16,5 @@ $(document).ready(function() {
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
 });
+
+//TODO: Code two more columns for VERB and ADJECTIVE categories

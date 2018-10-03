@@ -5,7 +5,6 @@ package com.gd.demo.domain;
 import com.gd.demo.enums.WordCategory;
 import lombok.*;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;

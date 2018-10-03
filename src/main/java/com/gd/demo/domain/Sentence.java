@@ -1,20 +1,19 @@
 package com.gd.demo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 @AllArgsConstructor
+@NoArgsConstructor
+
 @Getter
 @Setter
 @Builder
 @Entity
 @Table(name = "SENTENCE")
-public class Sentence {
+public class Sentence implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +22,4 @@ public class Sentence {
     @Column(name = "sentence")
     private String sentence;
 
-    @Override
-    public String toString() {
-        return "Created sentence: " + sentence;
-    }
 }
