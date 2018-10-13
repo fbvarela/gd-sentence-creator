@@ -1,18 +1,14 @@
 package com.gd.demo.repository;
 
-import com.gd.demo.domain.Word;
+import com.gd.demo.domain.Sentence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface SentenceRepository extends JpaRepository<Word, String> {
+public interface SentenceRepository extends JpaRepository<Sentence, String> {
 
-    public List<Word> findAll();
-
-    public Word findByName(String name);
+    List<Sentence> findAll();
 
 }
-
-//TODO: Repositories for saving data in the DB

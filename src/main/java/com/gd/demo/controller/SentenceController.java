@@ -10,8 +10,7 @@ import com.gd.demo.dto.WordDto;
 import com.gd.demo.enums.WordCategory;
 import com.gd.demo.exceptions.SentenceNotFoundException;
 import com.gd.demo.exceptions.WordNotFoundException;
-import com.gd.demo.service.SentencesService;
-import com.gd.demo.service.SentencesServiceImpl;
+import com.gd.demo.service.SentenceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -43,7 +41,7 @@ public class SentenceController {
     private WordConverter wordConverter;
 
     @Autowired
-    private SentencesService sentencesService;
+    private SentenceService sentencesService;
 
 
     // GET /words
@@ -66,9 +64,9 @@ public class SentenceController {
 
     // GET /sentences/generate
 
-    @ApiOperation(value = "Generate sentences ")
+    @ApiOperation(value = "Generate sentences")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Sentence"),
-        @ApiResponse(code = 204, message = "No Sentences have been retrieved", response = Error.class) })
+        @ApiResponse(code = 204, message = "No Sentences have been retrieved", response = SentenceNotFoundException.class) })
     @GetMapping(value = "/sentences/generate")
     public ResponseEntity<List<SentenceDto>> generateSentence() {
         List<Sentence> sentences = sentencesService.generateSentence();
@@ -81,6 +79,10 @@ public class SentenceController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
+
+    // POST /home
+
     @ApiOperation(value = "Save words")
     @PostMapping(value = "/home")
     @ApiResponse(code = 201, message = "Word saved", response = Error.class)
@@ -88,15 +90,19 @@ public class SentenceController {
 
         Word word = sentencesService.save(Word.builder().name(name).category(WordCategory.valueOf(category)).build());
 
-        response.sendRedirect("/index");
+        response.sendRedirect("/home");
     }
 
 
-    //TODO: Rest of endpoints
+
+    // GET /words/{word}
 
     @ApiOperation(value = "View a word")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Word"),
+            @ApiResponse(code = 204, message = "No Words have been retrieved", response = WordNotFoundException.class) })
     @GetMapping(value = "/words/{word}",
                 produces="application/json")
+
     public ResponseEntity<WordDto> getWord (@PathVariable String word) {
           Word wordRequest = sentencesService.findByWord(word);
           if (wordRequest == null) {
@@ -108,6 +114,23 @@ public class SentenceController {
           return new ResponseEntity<>(wordDto, HttpStatus.OK);
       }
 
+    // GET /sentences
 
+    @ApiOperation(value = "View a sentence")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Sentence"),
+            @ApiResponse(code = 204, message = "No Sentences have been retrieved",
+                    response = SentenceNotFoundException.class) })
+    @GetMapping(value = "/sentences",
+            produces="application/json")
 
+    public ResponseEntity<List<SentenceDto>> getSentences () {
+        List<Sentence> sentences = sentencesService.getAllSentences();
+
+        if (sentences.isEmpty() || sentences == null) {
+            throw new WordNotFoundException("No Sentences found");
+
+        }
+        List<SentenceDto> result = sentences.stream().map(sentenceConverter::toDto).collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

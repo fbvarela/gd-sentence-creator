@@ -5,7 +5,7 @@ import com.gd.demo.domain.Word;
 import com.gd.demo.dto.WordDto;
 import com.gd.demo.enums.WordCategory;
 import com.gd.demo.exceptions.WordNotFoundException;
-import com.gd.demo.service.SentencesService;
+import com.gd.demo.service.SentenceService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.isA;
 public class SentenceControllerTest {
 
     private SentenceController sentencesController;
-    private SentencesService sentencesService;
+    private SentenceService sentenceService;
     private WordConverter wordConverter;
 
     @Before
@@ -35,8 +35,8 @@ public class SentenceControllerTest {
 
         MockitoAnnotations.initMocks(this);
 
-        sentencesService = Mockito.mock(SentencesService.class);
-        sentencesController.setSentencesService(sentencesService);
+        sentenceService = Mockito.mock(SentenceService.class);
+        sentencesController.setSentencesService(sentenceService);
 
         wordConverter = Mockito.mock(WordConverter.class);
         Mockito.when(wordConverter.toDto(isA(Word.class))).thenReturn(
@@ -55,12 +55,12 @@ public class SentenceControllerTest {
 
     @Test
     public void getWordsTest_success()  {
-        Mockito.when(sentencesService.getAllWords()).thenReturn(Arrays
+        Mockito.when(sentenceService.getAllWords()).thenReturn(Arrays
                 .asList(createWord("He", WordCategory.NOUN),
                         createWord("is", WordCategory.VERB),
                         createWord("good", WordCategory.ADJECTIVE)));
 
-        sentencesController.setSentencesService(sentencesService);
+        sentencesController.setSentencesService(sentenceService);
 
         ResponseEntity<List<WordDto>> response = sentencesController.getAllWords();
         assertNotNull(response);
@@ -70,8 +70,8 @@ public class SentenceControllerTest {
 
     @Test  (expected = WordNotFoundException.class)
     public void getWordsTest_fail()  {
-        Mockito.when(sentencesService.getAllWords()).thenReturn(null);
-        sentencesController.setSentencesService(sentencesService);
+        Mockito.when(sentenceService.getAllWords()).thenReturn(null);
+        sentencesController.setSentencesService(sentenceService);
         sentencesController.getAllWords();
     }
 
