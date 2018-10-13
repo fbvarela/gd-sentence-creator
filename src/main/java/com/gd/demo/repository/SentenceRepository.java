@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SentencesRepository extends JpaRepository<Word, String> {
+public interface SentenceRepository extends JpaRepository<Word, String> {
 
     public List<Word> findAll();
+
+    public Word findByName(String name);
 
 }
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WordDto {
 
-    private String word;
+    private String name;
 
     private String category;
 

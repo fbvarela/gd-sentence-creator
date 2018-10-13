@@ -1,6 +1,5 @@
 package com.gd.demo.controller;
 
-import com.gd.demo.converter.SentenceConverter;
 import com.gd.demo.converter.WordConverter;
 import com.gd.demo.domain.Word;
 import com.gd.demo.dto.WordDto;
@@ -24,7 +23,7 @@ import static org.mockito.ArgumentMatchers.isA;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 
-public class SentencesControllerTest {
+public class SentenceControllerTest {
 
     private SentenceController sentencesController;
     private SentencesService sentencesService;

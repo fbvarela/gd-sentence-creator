@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @AllArgsConstructor
@@ -22,11 +23,11 @@ public class Word implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "word")
-    private String word;
+    private String name;
 
-    @NotEmpty
+    @NotNull
     @Enumerated(EnumType.STRING)
     private WordCategory category;
 

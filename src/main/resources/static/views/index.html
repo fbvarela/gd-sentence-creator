@@ -1,17 +1,34 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <html lang="en">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="/js/app/app.js"></script>
+
     <meta charset="UTF-8">
-    <title>Get Started</title>
+    <title></title>
 </head>
 <body>
 <div><H1>Sentences generator</H1></div>
 <div><H2>Insert words</H2></div>
+<div>
+
+</div>
 <div class="input_fields_wrap">
-    <button class="add_field_button">Add More Fields</button>
-    <div><input type="text" name="mytext[]"></div>
+    <form action="/home" id="form" method="post">
+
+        <input type="text" id="name" name="name"/>
+        <select name="category">
+            <option value="NOUN">Noun</option>
+            <option value="VERB">Verb</option>
+            <option value="ADJECTIVE">Adjective</option>
+        </select>
+        <input type="text" id="category" name="category1"/>
+        <button type="submit">submit</button>
+
+    </form>
+
 </div>
 
 </body>

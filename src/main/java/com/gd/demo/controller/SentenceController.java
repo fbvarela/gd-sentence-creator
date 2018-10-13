@@ -7,6 +7,7 @@ import com.gd.demo.domain.Sentence;
 import com.gd.demo.domain.Word;
 import com.gd.demo.dto.SentenceDto;
 import com.gd.demo.dto.WordDto;
+import com.gd.demo.enums.WordCategory;
 import com.gd.demo.exceptions.SentenceNotFoundException;
 import com.gd.demo.exceptions.WordNotFoundException;
 import com.gd.demo.service.SentencesService;
@@ -19,16 +20,21 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.xml.ws.Response;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Api(tags = "Operations pertaining to Sentences Generator")
 @RestController
 @Setter
-public class SentencesController {
+public class SentenceController {
 
     @Autowired
     private SentenceConverter sentenceConverter;
@@ -62,7 +68,7 @@ public class SentencesController {
 
     @ApiOperation(value = "Generate sentences ")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Sentence"),
-            @ApiResponse(code = 204, message = "No Sentences have been retrieved", response = Error.class) })
+        @ApiResponse(code = 204, message = "No Sentences have been retrieved", response = Error.class) })
     @GetMapping(value = "/sentences/generate")
     public ResponseEntity<List<SentenceDto>> generateSentence() {
         List<Sentence> sentences = sentencesService.generateSentence();
@@ -75,5 +81,33 @@ public class SentencesController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Save words")
+    @PostMapping(value = "/home")
+    @ApiResponse(code = 201, message = "Word saved", response = Error.class)
+    public void saveWord(HttpServletResponse response, @Valid @RequestParam("name") String name, @Valid @RequestParam("category") String category) throws URISyntaxException, IOException {
+
+        Word word = sentencesService.save(Word.builder().name(name).category(WordCategory.valueOf(category)).build());
+
+        response.sendRedirect("/index");
+    }
+
+
     //TODO: Rest of endpoints
+
+    @ApiOperation(value = "View a word")
+    @GetMapping(value = "/words/{word}",
+                produces="application/json")
+    public ResponseEntity<WordDto> getWord (@PathVariable String word) {
+          Word wordRequest = sentencesService.findByWord(word);
+          if (wordRequest == null) {
+              throw new WordNotFoundException("No word found: " + word);
+          }
+
+          WordDto wordDto = wordConverter.toDto(wordRequest);
+
+          return new ResponseEntity<>(wordDto, HttpStatus.OK);
+      }
+
+
+
 }

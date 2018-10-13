@@ -3,8 +3,9 @@ package com.gd.demo.service;
 
 import com.gd.demo.domain.Sentence;
 import com.gd.demo.domain.Word;
+import com.gd.demo.dto.WordDto;
 import com.gd.demo.enums.WordCategory;
-import com.gd.demo.repository.SentencesRepository;
+import com.gd.demo.repository.SentenceRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class SentencesServiceImpl implements SentencesService {
 
     @Autowired
-    SentencesRepository userRepository;
+    SentenceRepository sentenceRepository;
 
 
     private List<Word> noums;
@@ -30,8 +31,13 @@ public class SentencesServiceImpl implements SentencesService {
     Random random = new Random();
 
     @Override
+    public Word findByWord(String word) {
+        return sentenceRepository.findByName(word);
+    }
+
+    @Override
     public List<Word> getAllWords() {
-        return userRepository.findAll();
+        return sentenceRepository.findAll();
     }
 
     public List<Sentence> generateSentence() {
@@ -47,9 +53,9 @@ public class SentencesServiceImpl implements SentencesService {
             Sentence sentence = new Sentence();
             sentence.setId(new Long(i));
             sentence.setSentence(
-                    noums.get(getRandomNumberBetwwenWordListIndex(noums.size()-1)).getWord() + " " +
-                    verbs.get(getRandomNumberBetwwenWordListIndex(verbs.size()-1)).getWord() + " " +
-                    adjectives.get(getRandomNumberBetwwenWordListIndex(adjectives.size()-1)).getWord()
+                    noums.get(getRandomNumberBetwwenWordListIndex(noums.size()-1)).getName() + " " +
+                    verbs.get(getRandomNumberBetwwenWordListIndex(verbs.size()-1)).getName() + " " +
+                    adjectives.get(getRandomNumberBetwwenWordListIndex(adjectives.size()-1)).getName()
             );
             sent.add(sentence);
 
@@ -58,7 +64,17 @@ public class SentencesServiceImpl implements SentencesService {
         return sent;
     }
 
+    @Override
+    public Word save(Word word) {
+        Word wordSaved = null;
+        if (!word.getName().isEmpty() || word.getCategory().toString() != null) {
+            wordSaved = sentenceRepository.save(word);
+        }
+        return wordSaved;
+    }
+
     private int getRandomNumberBetwwenWordListIndex(Integer numberOfFields) {
+
         return random.nextInt(numberOfFields);
     }
 

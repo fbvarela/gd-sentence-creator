@@ -6,10 +6,10 @@ import lombok.Getter;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-@Getter
+
 @Component
 @Mapper(componentModel = "spring")
-public abstract class WordConverter {
+public interface WordConverter {
 
     public abstract Word toEntity(WordDto dtoList);
 
