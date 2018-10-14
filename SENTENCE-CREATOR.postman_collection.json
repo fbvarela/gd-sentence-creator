@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "fe2483ae-2b1a-4d61-bc59-2f72b927e8fe",
+		"name": "SENTENCE CREATOR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Words",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/words",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"words"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Sentences",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/words",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"words"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get word by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/words",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"words"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sentence by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/sentences/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sentences",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate sentences",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/sentences/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sentences",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
