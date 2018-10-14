@@ -1,9 +1,16 @@
-gd-sentence-creator
+### Application to generate random sentences    
 
-<<<<<<< HEAD
-Application to generate random sentences.
-=======
-Application to generate random sentences with Java 8 and Spring Boot 2.
->>>>>>> c178ee8b0e81dfc0a6974a4a62a4a4894df2e285
+Application to generate random sentences with Java 8, Spring Boot 2 and H2 embedded database. 
+
+**Home page:** 
+http://localhost:8080/home  
+
+Run application from console:  
+```sh
+mvn clean install 
+mvn spring-boot:run 
+```
+**Postman collection Requests file:**  
+*SENTENCE-CREATOR.postman_collection.jsonas possible.* 
 
 
