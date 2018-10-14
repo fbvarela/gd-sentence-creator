@@ -113,7 +113,7 @@ public class SentenceController {
 
     // GET /sentences
 
-    @ApiOperation(value = "View sentences")
+    @ApiOperation(value = "View all sentences")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Sentence"),
         @ApiResponse(code = 204, message = "No Sentences have been retrieved",
                     response = SentenceNotFoundException.class) })
@@ -133,7 +133,7 @@ public class SentenceController {
 
    // GET /sentences/{sentenceID}
 
-    @ApiOperation(value = "View sentences")
+    @ApiOperation(value = "View sentences by id")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Sentence"),
         @ApiResponse(code = 204, message = "No Sentence has been retrieved",
                     response = SentenceNotFoundException.class) })
