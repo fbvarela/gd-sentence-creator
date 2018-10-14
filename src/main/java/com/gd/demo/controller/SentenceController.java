@@ -79,8 +79,6 @@ public class SentenceController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
-
     // POST /home
 
     @ApiOperation(value = "Save words")
@@ -94,7 +92,6 @@ public class SentenceController {
     }
 
 
-
     // GET /words/{word}
 
     @ApiOperation(value = "View a word")
@@ -103,34 +100,54 @@ public class SentenceController {
     @GetMapping(value = "/words/{word}",
                 produces="application/json")
 
-    public ResponseEntity<WordDto> getWord (@PathVariable String word) {
-          Word wordRequest = sentencesService.findByWord(word);
-          if (wordRequest == null) {
+    public ResponseEntity<WordDto> getWord(@Valid @PathVariable String word) {
+          Word wordResponse = sentencesService.getWord(word);
+          if (wordResponse == null) {
               throw new WordNotFoundException("No word found: " + word);
           }
 
-          WordDto wordDto = wordConverter.toDto(wordRequest);
+          WordDto wordDto = wordConverter.toDto(wordResponse);
 
           return new ResponseEntity<>(wordDto, HttpStatus.OK);
       }
 
     // GET /sentences
 
-    @ApiOperation(value = "View a sentence")
+    @ApiOperation(value = "View sentences")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Sentence"),
-            @ApiResponse(code = 204, message = "No Sentences have been retrieved",
+        @ApiResponse(code = 204, message = "No Sentences have been retrieved",
                     response = SentenceNotFoundException.class) })
     @GetMapping(value = "/sentences",
             produces="application/json")
 
-    public ResponseEntity<List<SentenceDto>> getSentences () {
-        List<Sentence> sentences = sentencesService.getAllSentences();
+    public ResponseEntity<List<SentenceDto>> getSentences() {
+        List<Sentence> sentencesResponse = sentencesService.getAllSentences();
 
-        if (sentences.isEmpty() || sentences == null) {
-            throw new WordNotFoundException("No Sentences found");
-
+        if (sentencesResponse.isEmpty() || sentencesResponse == null) {
+            throw new SentenceNotFoundException("No Sentences found");
         }
-        List<SentenceDto> result = sentences.stream().map(sentenceConverter::toDto).collect(Collectors.toList());
+
+        List<SentenceDto> result = sentencesResponse.stream().map(sentenceConverter::toDto).collect(Collectors.toList());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+   // GET /sentences/{sentenceID}
+
+    @ApiOperation(value = "View sentences")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Retrieve at least one Sentence"),
+        @ApiResponse(code = 204, message = "No Sentence has been retrieved",
+                    response = SentenceNotFoundException.class) })
+   @GetMapping(value = "/sentences/{sentenceId}",
+           produces="application/json")
+   public ResponseEntity<SentenceDto> getSentence(@Valid @PathVariable Long sentenceId) {
+
+        Sentence sentenceResponse = sentencesService.getSentenceById(sentenceId);
+
+        if (sentenceResponse == null) {
+           throw new WordNotFoundException("No Sentences found");
+       }
+        SentenceDto result = sentenceConverter.toDto(sentenceResponse);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+   }
 }

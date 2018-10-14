@@ -14,6 +14,3 @@ public interface WordRepository extends JpaRepository<Word, String> {
     Word findByName(String name);
 
 }
-
-//TODO: Repositories for saving data in the DB
-

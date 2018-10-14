@@ -11,4 +11,6 @@ public interface SentenceRepository extends JpaRepository<Sentence, String> {
 
     List<Sentence> findAll();
 
+    Sentence findSentencesById(Long sentenceID);
+
 }

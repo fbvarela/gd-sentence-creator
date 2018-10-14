@@ -34,12 +34,14 @@ public class SentenceServiceImpl implements SentenceService {
     Random random = new Random();
 
     @Override
-    public Word findByWord(String word) {
+    public Word getWord(String word) {
+
         return wordRepository.findByName(word);
     }
 
     @Override
     public List<Word> getAllWords() {
+
         return wordRepository.findAll();
     }
 
@@ -52,10 +54,10 @@ public class SentenceServiceImpl implements SentenceService {
 
         sentences = new ArrayList<>();
 
-        for(int i=0;i<8;i++) {
+        for(int i=0; i<words.size()-1; i++) {
             Sentence sentence = new Sentence();
             sentence.setId(new Long(i));
-            sentence.setSentence(
+            sentence.setText(
                     noums.get(getRandomNumberUpToTheListSize(noums.size()-1)).getName() + " " +
                     verbs.get(getRandomNumberUpToTheListSize(verbs.size()-1)).getName() + " " +
                     adjectives.get(getRandomNumberUpToTheListSize(adjectives.size()-1)).getName()
@@ -70,7 +72,7 @@ public class SentenceServiceImpl implements SentenceService {
         return sentences;
     }
 
-    private void saveSentences (List<Sentence> sentences) {
+    private void saveSentences(List<Sentence> sentences) {
 
         sentences.forEach((sentence) -> sentenceRepository.save(sentence));
     }
@@ -85,8 +87,10 @@ public class SentenceServiceImpl implements SentenceService {
     }
 
     private int getRandomNumberUpToTheListSize(Integer numberOfFields) {
-
-        return random.nextInt(numberOfFields);
+        if (numberOfFields > 0) {
+            return random.nextInt(numberOfFields);
+        }
+        return 1;
     }
 
     private List<Word> ExtractWordsByCategory(List<Word> words, WordCategory category) {
@@ -98,6 +102,12 @@ public class SentenceServiceImpl implements SentenceService {
     @Override
     public List<Sentence> getAllSentences() {
         return sentenceRepository.findAll();
+    }
+
+    @Override
+    public Sentence getSentenceById(Long sentenceId) {
+        return sentenceRepository.findSentencesById(sentenceId);
+
     }
 
 }

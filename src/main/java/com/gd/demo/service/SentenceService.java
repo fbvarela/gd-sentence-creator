@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SentenceService {
 
-    Word findByWord(String word);
+    Word getWord(String word);
 
     List<Word> getAllWords();
 
@@ -17,4 +17,6 @@ public interface SentenceService {
     Word save(Word Word);
 
     List<Sentence> getAllSentences();
+
+    Sentence getSentenceById(Long sentenceId);
 }

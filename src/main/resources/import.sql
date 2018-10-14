@@ -1,5 +1,5 @@
-insert into words (id, word, category) values(1, 'Dog', 'NOUN');
-insert into words (id, word, category) values(2, 'is', 'VERB');
+insert into words (id, word, category) values(1, 'Dogs', 'NOUN');
+insert into words (id, word, category) values(2, 'are', 'VERB');
 insert into words (id, word, category) values(3, 'friendly', 'ADJECTIVE');
 
 insert into words (id, word, category) values(4, 'He', 'NOUN');
