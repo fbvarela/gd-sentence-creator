@@ -6,10 +6,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Getter
-@Setter
 @Builder
-@ToString
 @Component
 public class WordDto {
 
@@ -17,4 +14,19 @@ public class WordDto {
 
     private String category;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

@@ -6,13 +6,18 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Getter
-@Setter
 @Builder
 @ToString
 @Component
 public class SentenceDto {
 
-    private String sentence;
+    private String text;
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }
